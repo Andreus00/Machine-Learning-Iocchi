@@ -1,0 +1,41 @@
+%%% Everything below sets up the environments
+\tcbset{%
+  defstyle/.style={colframe=mydarkblue, colback=mylightblue, colbacktitle=mymidblue,%
+    coltitle=myblack, colupper=myblack, toprule=1mm, bottomrule=1mm,%
+    leftrule=1mm, rightrule=1mm},
+  theostyle/.style={colframe=mydarkgreen, colback=mylightgreen, colbacktitle=mymidgreen,%
+    coltitle=myblack, colupper=myblack, toprule=1mm, bottomrule=1mm,%
+    leftrule=1mm, rightrule=1mm},
+  assstyle/.style={colframe=myorange, colback=mylightred, colbacktitle=mymidred,%
+    coltitle=myblack, colupper=myblack, toprule=1mm, bottomrule=1mm,%
+    leftrule=1mm, rightrule=1mm},
+  exestyle/.style={colframe=cyan, colback=mylightblue, colbacktitle=mymidblue,%
+    coltitle=myblack, colupper=myblack, toprule=1mm, bottomrule=1mm,%
+    leftrule=1mm, rightrule=1mm},
+  exastyle/.style={colframe=myorange, colback=myyellow, colbacktitle=myyellow,%
+    coltitle=myblack, colupper=myblack, toprule=1mm, bottomrule=1mm,%
+    leftrule=1mm, rightrule=1mm},
+  conjstyle/.style={colframe=olive, colback=myyellow, colbacktitle=myyellow,%
+    coltitle=myblack, colupper=myblack, toprule=1mm, bottomrule=1mm,%
+    leftrule=1mm, rightrule=1mm},
+  remstyle/.style={colframe=lime, colback=mylightgreen, colbacktitle=mymidgreen,% 
+    coltitle=myblack, colupper=myblack, toprule=1mm, bottomrule=1mm%,
+    leftrule=1mm, rightrule=1mm}
+}
+
+\newtcbtheorem[number within=section, Crefname={definition}{definitions}]{definition}{Definition}{defstyle}{def}
+\newtcbtheorem[number within=section, Crefname={theorem}{theorems}]{theorem}{Theorem}{theostyle}{theo}
+\newtcbtheorem[number within=section, Crefname={assumption}{assumptions}]{assumption}{Assumption}{assstyle}{ass}
+\newtcbtheorem[number within=section, Crefname={exercise}{exercises}]{exercise}{Exercise}{exestyle}{exe}
+\newtcbtheorem[number within=section, Crefname={example}{examples}]{example}{Example}{exastyle}{exa}
+\newtcbtheorem[number within=section, Crefname={conjecture}{conjectures}]{conjecture}{Conjecture}{conjstyle}{conj}
+\newtcbtheorem[number within=section, Crefname={remark}{remarks}]{remark}{Remark}{remstyle}{rem}
+\newtcbtheorem[use counter from=theorem, Crefname={corollary}{corollaries}]{corollary}{Corollary}{theostyle}{cor}
+\newtcbtheorem[use counter from=theorem, Crefname={lemma}{lemmas}]{lemma}{Lemma}{theostyle}{lem}
+\newtcbtheorem[use counter from=theorem, Crefname={proposition}{propositions}]{proposition}{Proposition}{theostyle}{prop}
+\newtcbtheorem[use counter from=conjecture, Crefname={question}{questions}]{question}{Question}{conjstyle}{conj}
+\newtcbtheorem[use counter from=conjecture, Crefname={speculation}{speculations}]{speculation}{Speculation}{conjstyle}{spec}
+
+\tcolorboxenvironment{proof}{colframe=mydarkred, colback=mylightred,%
+colbacktitle=mymidred, coltitle=myblack, colupper=myblack, toprule=1mm,%
+bottomrule=1mm, leftrule=1mm, rightrule=1mm}

@@ -1,0 +1,129 @@
+\section{Linear Models for Regression}
+\subsection{What we want to do?}
+We have a dataset $d = \{(x_{n}, t_{n})_{n=1}^{N}\}$ and we want to learn a function $f: X \xrightarrow[]{}Y$ with $X \subseteq \mathcal{R}^{d}$ and $Y = \mathcal{R}$ \\
+The model is such that $y(x; W) = W^{T}x$ approximates the target function ($W$ are weights of the function).
+
+Linear model for linear functions
+\begin{equation}
+    y(x;w) = w_{0} + w_{1}x_{1} + \dots + w_{d}x_{d} = w^{T}x
+\end{equation}
+with $x = \begin{bmatrix} 1\\ x_{1} \\ \dots \\ x_{d} \\ \end{bmatrix}$ and $w = \begin{bmatrix} w_{0}\\ w_{1} \\ \dots \\ w_{d} \\ \end{bmatrix}$\\
+Using non-linear functions of input variables means having:
+\begin{equation}
+    y(x;w) = \sum_{j=0}^{M}w_{j}\phi_{j}(x) = w^{T}\phi(x)
+\end{equation}
+with $w = \begin{bmatrix} w_{0}\\ w_{1} \\ \dots \\ w_{d} \\ \end{bmatrix}$,  $x = \begin{bmatrix} \phi_{0}(x)\\ \phi_{1}(x) \\ \dots \\ \phi_{M}(x) \\ \end{bmatrix}$ and $\phi_{0}(x) = 1$ (still linear in the parameter $w$).
+
+\subsection{Example of basis function}
+We can define a set of functions:
+\begin{equation}
+    \Phi(x) = \begin{bmatrix}
+                \phi_{0}(x)\\
+                \dots \\
+                \phi_{M}(x)
+                \end{bmatrix}
+\end{equation}
+such that $y(x;W) = W^{T}\Phi(x)$ is linear in $W$ and not linear in $x$.
+
+Well known transformations are for example:
+\begin{equation}
+    \Phi(x) = \begin{bmatrix}
+                1\\
+                x \\
+                x^{2} \\
+                x^{3} \\
+                \dots \\
+                x^{M} \\
+                \end{bmatrix}
+\end{equation}
+Other used transformations are Radial, Sigmoid and Tanh
+
+\subsection{maximum Likelihood and least square}
+
+Target value t is given by the model $y(x; w)$ affected by additive noise $\epsilon$: $t = y(x;w) + \epsilon$\\
+Assume Gaussian noise $P(\epsilon|\beta) = \N(\epsilon|0, \beta ^{-1})$, with precision $\beta$. We have:
+\begin{equation}
+    P(t|x,w,\beta) = \N(t|y(x;w),\beta ^{-1})
+\end{equation}
+
+If we get all the labels $t_{n}$, regroup them in a single vector $t$ and assume they are all independent, we can seek the maximum likelihood function:
+\begin{equation}
+    p(t|x_{1}, \dots, x_{N}, w, \beta) = \prod_{n=1}^{N}\N(t_{n}|w^{T}\phi(x_{n}), \beta^{-1})
+\end{equation}
+or equivalently, we can consider the natural logarithm:
+\begin{equation}
+    \begin{multlined}
+    \ln p(t|x_{1}, \dots, x_{N}, w, \beta) = \sum_{n=1}^{N}\ln \N(t_{n}|w^{T}\phi(x_{n}), \beta^{-1}) = \\
+    \frac{N}{2} \ln (\beta) - \frac{N}{2}\ln (2\pi) - \beta E_{D}(w)
+    \end{multlined}
+\end{equation}
+where we use the sum-of-squares error function.
+\begin{equation}
+    argmin\ E_{D}(w) = argmin\ \frac{1}{2}\sum_{n=1}^{N}[t_{n} - w^{T}\phi(x_{n})]^{2}
+\end{equation}
+The gradient of the function is then:
+\begin{equation}
+    \nabla \ln p(t|w, \beta) = \beta \sum_{n = 1} ^{N} \{t_{n} - w^{T}\phi(x_{n})\} \phi(x_{n})^{T}
+\end{equation}
+We can solve the problem in two ways:
+\begin{enumerate}
+    \item \textbf{Close Form Solution} 
+        if we set the gradient of $E_{D}(w)$to zero and solve for w we obtain:
+        \begin{equation}
+            w_{ML} = (\Phi^{T}\Phi)^{-1}\Phi^{T}t
+        \end{equation}
+        where t is the array $t = \begin{bmatrix} t_{0}\\ w_{1} \\ \dots \\ t_{dN} \\ \end{bmatrix}$ and $\Phi$ is
+        $\Phi = \begin{bmatrix} \phi_{0}(x_{1}) & \dots & \phi_{M}(x_{1}) \\ \phi_{0}(x_{2}) & \dots & \phi_{M}(x_{2}) \\ \dots & \dots & \dots \\ \phi_{0}(x_{N}) & \dots & \phi_{M}(x_{N})) \end{bmatrix}$.
+
+        Notice: $(\Phi^{T}\Phi)^{-1}\Phi^{T}$ is the \textit{pseudo-inverse} $\Phi^{\dagger}$
+    \item \textbf{Iterative Solution}: this method does not deliver the optimal solution, but a good enough one (Close Form Solution might be too much costly in term of computation). \\
+    Stochastic Gradient Descent algorithm:
+    \begin{equation}
+        \hat{w} \xleftarrow{} \hat{w} - \eta\nabla E_{n}
+    \end{equation}
+    therefore:
+    \begin{equation}
+        \hat{w} \xleftarrow{} \hat{w} - \eta[t_{n} - \hat{w}^{T}\phi(x_{n})]\phi(x_{n})
+    \end{equation}
+\end{enumerate}
+
+None of these methods can actually solve the method.
+
+\subsubsection{Regularization}
+For Stochastic gradient descent, regularization is crucial. We have to choose the right $\eta$ in order to avoid overfitting.
+One of the simplest regularizer is given by the sum-of-squares of the weight vector elements. 
+
+If we consider:
+\begin{equation}
+    E_{D}(w) + \lambda E_{W}(w)
+\end{equation}
+where $\lambda$ is the regularizer that control the relative importance of the data-dependent error $E_{D}(w)$ and the regularization term $E_{W}(w)$. The sum-of-squares is:
+\begin{equation}
+    E_{W}(w) = \frac{1}{2} w^{T}w
+\end{equation}
+Another common function is:
+\begin{equation}
+    E_{W}(w) = \sum_{j=0}^{M}|w_{j}|^{q}
+\end{equation}
+This technique is also known as \textit{weight decay} since it penalizes the weights and tents to lower them towards zero, unless supported by the data.
+
+\subsubsection{Multiple Outputs}
+We can introduce a different set of basis functions for each component of $t$, leading to multiple, independent regression problems. another interesting method is using the same set of basis functions to model all of the components of the target vectors so that
+\begin{equation}
+    t(x, w) = W^{T}\phi(x)
+\end{equation}
+where y is a K-dimensional column vector, $W$ is a $M \times K$ matrix of parameters, and $\phi(x)$ is a $M$-dimensional column vector with elements $\phi_{j}(x)$ and $\phi_{0}(x) = 1$.
+
+We can combine a set of observations $t_{1}, \dots, t_{N}$ into a matrix $T$ of size $N \times K$ such that the $n^{th}$ row is given by $t_{n}^{T}$. Similarly, we can combine the input vectors $x_{1}, \dots, x_{N}$ into a matrix X. The log likelihood is then:
+\begin{equation}
+    \ln p(T|X, W, \beta) = \sum_{n=1}^{N}\ln \N(t_{n}|W^{T}\phi(x_{n}), \beta^{-1}I) = \\
+    \frac{NK}{2} \ln (\frac{\beta}{2\pi}) - \frac{\beta}{2} \sum_{n=1}^{N} ||t_{n} - W^{T}\phi(x_{n})||^{2}
+\end{equation}
+As before, we can maximize the function wrt $W$:
+\begin{equation}
+    W_{ML} = (\Phi^{T}\Phi)^{-1}\Phi^{T}T
+\end{equation}
+where, for each target variable $t_{k}$, we have:
+\begin{equation}
+    w_{k} = (\Phi^{T}\Phi)^{-1}\Phi_{T}t_{k} = \Phi^{\dagger}t_{k}
+\end{equation}

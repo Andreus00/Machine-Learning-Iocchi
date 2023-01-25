@@ -1,0 +1,46 @@
+\section{Instance Based Learners}
+\subsection{Parametric vs Non-Parametric Models}
+
+\textbf{Parametric models} have a fixed number of parameters. Examples:
+\begin{itemize}
+    \item Linear regression
+    \item Logistic regression
+    \item Perceptron
+    \item \dots
+\end{itemize}
+
+\textbf{Non-parametric models}: Number of parameters grows with amount of data. 
+
+A Simple non-parametric model is the instance-based learning.
+
+\subsection{K-nearest neighbors}
+It tries to solve the classification problem.
+
+The classification with K-NN is as follows:
+\begin{enumerate}
+    \item Find K nearest neighbors of new instance x
+    \item Assign to x the most common label among the majority of neighbors
+\end{enumerate}
+
+The likelihood of the class c for a new instance is given by:
+\begin{equation}
+    p(c|x, D, K) = \frac{1}{K} \sum_{x_{n} \in N_{k}(x_{n}, D)} I(t_{n} = c)
+\end{equation}
+with $N_{K}(x_{n}, D)$ the $K$ nearest points to $x_{n}$ and $I(e) = \{\begin{array}{lr}
+        1 & \text{if e is true}\\
+        0, & \text{if e is false}
+        \end{array}$
+
+We can change K to fit better the dataset and avoid overfitting.
+
+\subsection{Kernelized nearest neighbours}
+we can use a distance function in computing $N_{K}(x, D)$
+\begin{equation}
+    ||x-x_{n}||^{2} = x^{T}x + x^{T}_{n} - 2x^{T}x_{n}
+\end{equation}
+can be kernelized by using a kernel $k(x, x_{n})$
+
+\subsection{Locally weighted regression}
+Regression problem $f: X \xrightarrow{}\mathcal{R}$ with data set  $D = \{(x_{n}, t_{n})^{N}_{n=1}\}$. We can fit a local regression around a certain datapoint $x_{q}$.\\
+We can firstly compute the K nearest neighbours of $x_{q}$, fit a regression on those neighbours and finally return $y(x_{q}; w)$. We can also use a kernelized regression.
+

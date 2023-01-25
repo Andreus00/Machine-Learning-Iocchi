@@ -1,0 +1,50 @@
+\section{Bayesian Learning}
+
+\subsection{the problem}
+We want to learn a function given a dataset D. We want the function to approximate a new given instance x' as close as possible to the real value.
+\[v* = \underset{h \in H}{argmax} P(v|x', D)\]
+
+Given a dataset D and hypothesis H, compute a probability distribution over H given D.
+\[P(H|D)\]
+we can apply Bayes rule
+\[P(h|D) = \frac{P(D|h)P(h)}{P(D)}\]
+
+\subsection{MAP Hypothesis}
+\[P(h|D) = \frac {P(H|h)P(h)}{P(D)}\]
+Generally we want the most probable hypothesis h given D.\\
+Maximum A Posteriori hypothesis $h_{MAP}$:
+\[h_{MAP} = \underset{h \in H}{argmax}P(h|D) = \underset{h \in H}{argmax} \frac{P(D|h)P(h)}{P(D)} = \underset{h \in H}{argmax} P(D|h)P(h)\]
+We removed P(D) because it is constant and does not influence the argmax. \\
+We don't always have information about the prior $P(h)$. We need a new definition.
+\subsubsection{ML Hypothesis}
+\[P(h|D) = \frac{P(D|h)P(h)}{P(D)}\]
+If i assume $P(h_{i}) = P(h_{j})$, we can further simplify, and choose the Maximum Likelihood hypothesis:
+\[h_{ML} = \underset{h \in H}{argmax} P(D|h)\]
+And consider all the posterior with the same probability.
+
+\subsection{Bruteforce MAP Hypothesis Learner}
+Calculate the posterior probability for each hypothesis  and return the highest one.
+\subsection{Bayes Optimal Classifier}
+consider the target function $f:X \xrightarrow[]{}V, V = \{v_{1}\dots v_{k}\}$, data set D and a new instance x $ \not\in $ D:
+\[P(v_{j}|x, D) = \sum_{h_{j} \in H} P(v_{j}|x, h_{i})P(h_{i}|D)\]
+total probability over H. \\
+$h_{j}$ does not depend  on $x \not\in D \xleftarrow[]{}P(h_{i}|x,D) = P(h_{i},D)$
+
+\subsubsection{Bayes optimal classifier}
+If we use MAP or ML, we only get the most probable hypothesis and it is not true that the most probable hypothesis is also the correct class given a sample x. We can make a step further and use Bayes Optimal Classifier to get the most probable class. Given a Bayes Optimal Classifier, we can predict the class $v_{j}$ of a new instance x as:
+\[v_{OB} = \underset{v_{j} \in V}{arg max}\sum_{h_{i} \in H}P(v_{j}|x, h_{i})P(h_{i}|D)\]
+As we can see, the classifier needs the conditional probability of the class given a sample and an hypothesis $i$, and the conditional probability of the hypothesis given the Dataset.
+
+\subsection{General Approach}
+Given dataset D with $d_{j} = \{0,1\}$ assuming a probability distribution $P(d_{j}|\Theta$ \\
+Maximum likelihood estimation
+\[\Theta _{ML} = \underset{\Theta}{argmax}\log P(d_{i}|\Theta).\]
+We can apply this method to different distributions.
+
+\subsubsection{Bayes Naive classifier}
+We could consider each attribute of x $= \{sx_{1}, \dots, x_{n}\}$ as independent and use a Naive Bayesian Classifier to learn the probability of a given class:
+\begin{equation}
+    C_{NB} = \underset{argmax}{c_{j}} P(c_{j}|D) \prod_{i=0}^{n} P(x_{i}|c_{j}, D)
+\end{equation}
+
+The assumption is fundamental in Naive Bayes. However it is not true in the vast majority of real life situations. Still it behaves well. It is good for spam detection and document classification.

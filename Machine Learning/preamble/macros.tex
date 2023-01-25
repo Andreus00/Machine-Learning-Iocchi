@@ -1,0 +1,94 @@
+% General writing
+\newcommand{\bracket}[1]{\left(#1\right)} % for automatic resizing of brackets
+\newcommand{\sbracket}[1]{\left[#1\right]} % for automatic resizing of square brackets
+\newcommand{\mset}[1]{\left\{#1\right\}} % for automatic resizing of curly brackets
+\newcommand{\defeq}{\coloneqq} % the "defined as" command
+\newcommand{\ndash}{--\ } % for producing a dash
+\newcommand{\mdash}{---\ } % for producing a longer dash
+\newcommand{\by}{\times} % used for talking about m by n matrices
+\newcommand{\eg}{e.g.\ } % for example
+\newcommand{\ie}{i.e.\ } % i.e.
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}} % uppercase roman numerals
+\renewcommand{\cite}{\textcite} % easier citing
+\newcommand{\hide}[1]{} % useful for temporarily removing some code
+
+\newcommand{\rednote}[1]{{\color{red} #1}} % for red text
+\newcommand{\bluenote}[1]{{\color{blue} #1}} % for blue text
+\newcommand{\greennote}[1]{{\color{green} #1}} % for green text
+
+% Blackboard Maths Symbols
+\newcommand{\N}{\mathbb{N}} % natural numbers
+\newcommand{\Q}{\mathbb{Q}} % rational numbers
+\newcommand{\Z}{\mathbb{Z}} % integers
+\newcommand{\R}{\mathbb{R}} % real numbers
+\newcommand{\C}{\mathbb{C}} % complex numbers
+\newcommand{\E}{\mathbb{E}} % expectaion operators
+\renewcommand{\P}{\mathbb{P}} % probability measures
+
+% Calligraphic Maths Symbols
+\newcommand{\F}{\mathcal{F}} % sigma-field
+
+% Bold Maths Symbols
+\newcommand{\1}{\mathbf{1}} % characteristic function
+
+% Maths operations
+\newcommand{\union}{\cup} % union
+\newcommand{\intersect}{\cap} % intersection
+\newcommand{\directsum}{\oplus} % direct sum
+\newcommand{\Union}{\bigcup} % bigger union symbol
+\newcommand{\Intersect}{\bigcap} % bigger intersection symbol
+\newcommand{\Directsum}{\bigoplus} % bigger direct sum symbol
+\newcommand{\tensor}{\otimes} % tensor
+\newcommand{\Tensor}{\bigotimes} % bigger tensor symbol
+\newcommand{\remove}{\setminus} % set difference
+\renewcommand{\hom}[2]{\operatorname{Hom}\bracket{{#1}, {#2}}} % Hom sets
+
+% Maths operations
+\newcommand{\powerset}[1]{\mathcal{P}\bracket{#1}} % powerset
+\renewcommand{\ip}[3]{\left \langle #1, #2 \right \rangle_{#3}} % inner product
+\newcommand{\cardinality}[1]{\operatorname{Card}\bracket{#1}} % cardinality
+\newcommand{\inv}[1]{#1^{-1}} % inverse
+\newcommand{\adj}[1]{#1^{*}} % adjoint
+\newcommand{\conj}[1]{\overline{#1}} % conjugate
+\newcommand{\vspan}[1]{\operatorname{Span}\left\{#1\right\}} % vector space span
+\renewcommand{\rank}[1]{\operatorname{Rank}\bracket{#1}} % rank of a linear transformation
+\newcommand{\diag}[1]{\operatorname{Diag}\bracket{#1}} % diagonal elements of a square matrix
+\renewcommand{\tr}[1]{\operatorname{Tr}\bracket{#1}} % trace
+\newcommand{\kernel}[1]{\operatorname{Ker}\bracket{#1}} % kernel
+\newcommand{\im}[1]{\operatorname{Im}\bracket{#1}} % image
+\newcommand{\range}[1]{\operatorname{Ran}\bracket{#1}} % range
+\newcommand{\col}[1]{\operatorname{Col}\bracket{#1}} % column space
+\renewcommand{\exponential}[1]{\operatorname{exp}\bracket{#1}} % exponential function
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor} % macro for the floor function
+\renewcommand{\ceil}[1]{\left\lceil#1\right\rceil} % macro for the ceiling function
+\newcommand{\dx}{\,\mathrm{d}x} % differential of x
+\newcommand{\dy}{\,\mathrm{d}y} % differential of y
+\newcommand{\dt}{\,\mathrm{d}t} % differential of t
+
+
+% optimisation objectives
+\DeclareMathOperator*{\argmin}{argmin} % argument which minimises some criterion
+\DeclareMathOperator*{\argmax}{argmax} % argument which maximises some criterion
+\DeclareMathOperator*{\arginf}{arginf} % argument that gives the infimum of some criterion
+\DeclareMathOperator*{\argsup}{argsup} % argument that gives the supremum of some criterion
+
+% Statistical operations
+\newcommand{\given}{\vert} % given (used in conditional probability)
+\newcommand{\suchthat}{\;\middle|\;} % such that
+\newcommand{\probspace}{\bracket{\Omega, \F, \P}} % a probability space
+\newcommand{\borel}[1]{\B\bracket{#1}} % the Borel sigma-field
+\newcommand{\prob}[1]{\P\bracket{#1}} % Probability
+\newcommand{\cprob}[2]{\P\bracket{#1 \middle\given #2}} % Conditional probability
+\newcommand{\expect}[1]{\E\bracket{#1}} % Expectation
+\newcommand{\cexpect}[2]{\E\bracket{#1 \middle\given #2}} % Conditional expectation
+\renewcommand{\var}[1]{\operatorname{Var}\bracket{#1}} % Variance
+\newcommand{\cvar}[2]{\operatorname{Var}\bracket{#1 \middle\given #2}} % Conditional variance
+\newcommand{\cov}[2]{\operatorname{Cov}\bracket{#1, #2}} % Covariance
+\newcommand{\ccov}[3]{\operatorname{Cov}\bracket{#1, #2 \middle\given #3}} % Conditional covariance
+\newcommand{\corr}[2]{\operatorname{Corr}\bracket{#1, #2}} % Correlation
+\newcommand{\ccorr}[3]{\operatorname{Corr}\bracket{#1, #2 \middle\given #3}} % Conditional correlation
+
+% Statistical symbols
+\newcommand{\indep}{\perp\!\!\!\!\!\perp} % statistical independence
+\newcommand{\sigfield}[1]{\sigma\bracket{#1}} % sigma-field
+\newcommand{\evalue}[1]{\lambda_{#1}} % eigenvalue

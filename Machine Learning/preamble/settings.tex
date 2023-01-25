@@ -1,0 +1,18 @@
+\setlength{\parindent}{0.2in} % sets the size of paragraph indenting
+\setlength{\parskip}{0pt} % sets the size of the gap between paragraphs
+\setlength{\abovedisplayskip}{3pt} % sets the size of the gap induced by \abovedisplayskip
+\setlength{\belowdisplayskip}{3pt} % similar
+\setlength{\abovedisplayshortskip}{0pt} % similar
+\setlength{\belowdisplayshortskip}{0pt} % similar
+\linespread{1.0} % spacing between lines
+\setcounter{tocdepth}{3} % how many levels of sectioning will go into the table of contents
+\setsecnumdepth{subsubsection} % numbers subsubsection environments
+\allowdisplaybreaks[1] % stops forcing pagebreaks before very long align environments
+\nouppercaseheads % stops headers being made entirely uppercase
+
+%%% Sets up the page layout
+\makepagestyle{contents}
+\makeevenhead{contents}{\itshape \rightmark}{}{}
+\makeoddhead{contents}{\itshape \rightmark}{}{}
+\makeevenfoot{contents}{}{\thepage}{}
+\makeoddfoot{contents}{}{\thepage}{}
